@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Card from './Card';
+import Card from './Card.jsx';
 
 const DeckView = ({ cards, allTags, onEditTags }) => {
     const [selectedTag, setSelectedTag] = useState('all');
@@ -32,3 +32,4 @@ const DeckView = ({ cards, allTags, onEditTags }) => {
 };
 
 export default DeckView;
+

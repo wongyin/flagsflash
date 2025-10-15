@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { API_URL, PREDEFINED_TAGS, COMMON_COLORS } from './constants';
-import Loader from './components/Loader'; 
-import Header from './components/Header';
-import DeckView from './components/DeckView';
-import QuizView from './components/QuizView';
-import TagEditModal from './components/TagEditModal';
+import { API_URL, PREDEFINED_TAGS, COMMON_COLORS } from './constants.js';
+import Loader from './components/Loader.jsx';
+import Header from './components/Header.jsx';
+import DeckView from './components/DeckView.jsx';
+import QuizView from './components/QuizView.jsx';
+import TagEditModal from './components/TagEditModal.jsx';
 
 export default function App() {
     const [cards, setCards] = useState([]);
     const [allTags, setAllTags] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [view, setView] = useState('deck'); // 'deck' or 'quiz'
-    const [theme, setTheme] = useState(localStorage.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    const [theme, setTheme] = useState(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            return savedTheme;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    });
     const [editingCard, setEditingCard] = useState(null);
 
     // Theme effect
@@ -106,7 +112,7 @@ export default function App() {
             {isLoading ? <Loader /> : (
                 <>
                     {view === 'deck' && <DeckView cards={cards} allTags={allTags} onEditTags={setEditingCard} />}
-                    {view === 'quiz' && <QuizView cards={cards} allTags={allTags} />}
+                    {view === 'quiz' && <QuizView cards={cards} allTags={allTags} />}                
                 </>
             )}
 
