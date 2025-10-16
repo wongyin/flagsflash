@@ -106,7 +106,7 @@ const QuizView = ({ cards, allTags, selectedTags, handleTagToggle }) => {
             <div className="text-center mb-4">
                 <button
                     onClick={() => setIsFilterVisible(!isFilterVisible)}
-                    className="px-4 py-2 text-sm font-medium text-white bg-gray-500 rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                    className="px-4 py-2 text-sm font-medium text-white bg-gray-500 rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 cursor-pointer"
                 >
                     {isFilterVisible ? 'Hide Filters' : 'Filter by Tags'}
                 </button>
@@ -120,7 +120,7 @@ const QuizView = ({ cards, allTags, selectedTags, handleTagToggle }) => {
                             <button 
                                 key={tag}
                                 onClick={() => handleTagToggle(tag)}
-                                className={`tag-filter-btn px-3 py-1 rounded-full text-sm hover:bg-gray-300 dark:hover:bg-gray-600 ${selectedTags.includes(tag) ? 'selected' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'}`}
+                                className={`tag-filter-btn px-3 py-1 rounded-full text-sm hover:bg-gray-300 dark:hover:bg-gray-600 cursor-pointer ${selectedTags.includes(tag) ? 'selected' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'}`}
                             >
                                 {tag}
                             </button>
@@ -136,9 +136,9 @@ const QuizView = ({ cards, allTags, selectedTags, handleTagToggle }) => {
                     </div>
                     <input ref={inputRef} type="text" value={answer} onChange={e => setAnswer(e.target.value)} onKeyUp={handleInputKeyUp} disabled={isAnswered} className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter country name..." />
                     {!isAnswered ? (
-                        <button onClick={checkAnswer} className="w-full mt-4 px-6 py-3 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600">Submit</button>
+                        <button onClick={checkAnswer} className="w-full mt-4 px-6 py-3 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 cursor-pointer">Submit</button>
                     ) : (
-                        <button onClick={nextQuestion} className="w-full mt-4 px-6 py-3 bg-green-500 text-white font-bold rounded-lg shadow-md hover:bg-green-600">Next Flag</button>
+                        <button onClick={nextQuestion} className="w-full mt-4 px-6 py-3 bg-green-500 text-white font-bold rounded-lg shadow-md hover:bg-green-600 cursor-pointer">Next Flag</button>
                     )}
                     <div className={`mt-4 h-6 text-lg font-semibold ${feedback.startsWith('Correct') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>{feedback}</div>
                     <div className="mt-2 text-gray-600 dark:text-gray-400">Score: {score} / {attempted}</div>

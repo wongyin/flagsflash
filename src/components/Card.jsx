@@ -24,7 +24,7 @@ const Card = ({ card, onEditTags }) => {
                         </div>
                     </div>
                     <button 
-                        className="edit-tags-btn text-sm text-blue-300 hover:text-blue-100 self-center mt-2"
+                        className="edit-tags-btn text-sm text-blue-300 hover:text-blue-100 self-center mt-2 cursor-pointer"
                         onClick={(e) => {
                             e.stopPropagation(); // Prevent card from flipping
                             onEditTags(card);
@@ -39,3 +39,4 @@ const Card = ({ card, onEditTags }) => {
 };
 
 export default Card;
+

@@ -13,7 +13,7 @@ const DeckView = ({ cards, allTags, onEditTags, selectedTags, handleTagToggle })
             <div className="text-center mb-4">
                 <button
                     onClick={() => setIsFilterVisible(!isFilterVisible)}
-                    className="px-4 py-2 text-sm font-medium text-white bg-gray-500 rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                    className="px-4 py-2 text-sm font-medium text-white bg-gray-500 rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 cursor-pointer"
                 >
                     {isFilterVisible ? 'Hide Filters' : 'Filter by Tags'}
                 </button>
@@ -27,7 +27,7 @@ const DeckView = ({ cards, allTags, onEditTags, selectedTags, handleTagToggle })
                             <button 
                                 key={tag}
                                 onClick={() => handleTagToggle(tag)}
-                                className={`tag-filter-btn px-3 py-1 rounded-full text-sm hover:bg-gray-300 dark:hover:bg-gray-600 ${selectedTags.includes(tag) ? 'selected' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'}`}
+                                className={`tag-filter-btn px-3 py-1 rounded-full text-sm hover:bg-gray-300 dark:hover:bg-gray-600 cursor-pointer ${selectedTags.includes(tag) ? 'selected' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'}`}
                             >
                                 {tag}
                             </button>

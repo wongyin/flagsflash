@@ -112,8 +112,8 @@ export default function App() {
             <Header theme={theme} toggleTheme={toggleTheme} />
 
             <div className="flex justify-center mb-8 space-x-4">
-                <button onClick={() => setView('deck')} className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">Deck View</button>
-                <button onClick={() => setView('quiz')} className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600">Quiz Mode</button>
+                <button onClick={() => setView('deck')} className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 cursor-pointer">Deck View</button>
+                <button onClick={() => setView('quiz')} className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 cursor-pointer">Quiz Mode</button>
             </div>
             
             {isLoading ? <Loader /> : (
