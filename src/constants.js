@@ -2,7 +2,7 @@ export const API_URL = 'https://restcountries.com/v3.1/all?fields=name,flags,reg
 
 export const PREDEFINED_TAGS = {
     "AFG": ["Asia","Southern Asia","white","black"], "ALB": ["Europe","Southeast Europe","red","black"],
-    "DZA": ["Africa","Northern Africa","red","white","green","moon","star"], "ARM": ["Asia","Western Asia","red","blue","orange","horizontal","stripes"],
+    "DZA": ["Africa","Northern Africa","red","white","green","star"], "ARM": ["Asia","Western Asia","red","blue","orange","horizontal","stripes"],
     "AND": ["Europe","Southern Europe","red","blue","yellow","vertical","stripes"], "ARG": ["Americas","South America","red","white","blue","horizontal","stripes"],
     "AUT": ["Europe","Central Europe","red","white","horizontal","stripes"], "AZE": ["Asia","Western Asia","red","white","blue","green","horizontal","stripes","star"],
     "BOL": ["Americas","South America","red","green","yellow","horizontal","stripes"], "BWA": ["Africa","Southern Africa","white","blue","black","horizontal","stripes"],
