@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
-const QuizView = ({ cards, allTags }) => {
+const QuizView = ({ cards, allTags, selectedTags, handleTagToggle }) => {
     const [quizDeck, setQuizDeck] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
-    const [selectedTags, setSelectedTags] = useState([]);
     const [answer, setAnswer] = useState('');
     const [feedback, setFeedback] = useState('');
     const [isAnswered, setIsAnswered] = useState(false);
@@ -45,12 +44,6 @@ const QuizView = ({ cards, allTags }) => {
     useEffect(() => {
         startQuiz();
     }, [startQuiz]);
-
-    const handleTagToggle = (tag) => {
-        setSelectedTags(prev => 
-            prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
-        );
-    };
 
     const nextQuestion = useCallback(() => {
         if (currentQuestionIndex < quizDeck.length - 1) {

@@ -19,6 +19,7 @@ export default function App() {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     });
     const [editingCard, setEditingCard] = useState(null);
+    const [selectedTags, setSelectedTags] = useState([]);
 
     // Theme effect
     useEffect(() => {
@@ -100,6 +101,12 @@ export default function App() {
         setAllTags(Array.from(allTagsSet).sort());
     };
 
+    const handleTagToggle = (tag) => {
+        setSelectedTags(prev => 
+            prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+        );
+    };
+
     return (
         <div className="container mx-auto p-4 sm:p-6 md:p-8">
             <Header theme={theme} toggleTheme={toggleTheme} />
@@ -111,8 +118,23 @@ export default function App() {
             
             {isLoading ? <Loader /> : (
                 <>
-                    {view === 'deck' && <DeckView cards={cards} allTags={allTags} onEditTags={setEditingCard} />}
-                    {view === 'quiz' && <QuizView cards={cards} allTags={allTags} />}                
+                    {view === 'deck' && (
+                        <DeckView 
+                            cards={cards} 
+                            allTags={allTags} 
+                            onEditTags={setEditingCard} 
+                            selectedTags={selectedTags}
+                            handleTagToggle={handleTagToggle}
+                        />
+                    )}
+                    {view === 'quiz' && (
+                        <QuizView 
+                            cards={cards} 
+                            allTags={allTags} 
+                            selectedTags={selectedTags}
+                            handleTagToggle={handleTagToggle}
+                        />
+                    )}
                 </>
             )}
 
