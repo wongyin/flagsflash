@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../assets/images/logo.png';
 
 const SunIcon = () => (
     <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -14,6 +15,7 @@ const MoonIcon = () => (
 
 const Header = ({ theme, toggleTheme }) => (
     <header className="relative text-center mb-8">
+        <img src={logo} alt="Flag Flashcards Logo" className="absolute top-0 left-0 h-24 w-24" />
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Flag Flashcards</h1>
         <p className="text-gray-600 dark:text-gray-400 mt-2">Learn the flags of the world. Click a card to flip it!</p>
         <button onClick={toggleTheme} className="absolute top-0 right-0 p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
