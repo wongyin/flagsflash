@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import Card from './Card.jsx';
 
-const DeckView = ({ cards, allTags, onEditTags, selectedTags, handleTagToggle }) => {
+const DeckView = ({ cards, allTags, onEditTags, selectedTags, handleTagToggle, correctAnswers, specialTags }) => {
     const [isFilterVisible, setIsFilterVisible] = useState(false);
     
-    const filteredCards = selectedTags.length === 0
-        ? cards
-        : cards.filter(card => selectedTags.every(tag => card.tags.includes(tag)));
+    const filteredCards = cards.filter(card => {
+        if (selectedTags.length === 0) return true;
+
+        const isCorrect = correctAnswers.includes(card.id);
+        const regularTags = selectedTags.filter(t => !Object.values(specialTags).includes(t));
+
+        if (selectedTags.includes(specialTags.CORRECT) && !isCorrect) return false;
+        if (selectedTags.includes(specialTags.INCORRECT) && isCorrect) return false;
+        
+        return regularTags.every(tag => card.tags.includes(tag));
+    });
 
     return (
         <div>
@@ -38,7 +46,12 @@ const DeckView = ({ cards, allTags, onEditTags, selectedTags, handleTagToggle })
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                 {filteredCards.map(card => (
-                    <Card key={card.id} card={card} onEditTags={onEditTags} />
+                    <Card 
+                        key={card.id} 
+                        card={card} 
+                        onEditTags={onEditTags} 
+                        isCorrect={correctAnswers.includes(card.id)}
+                    />
                 ))}
             </div>
         </div>
@@ -46,4 +59,3 @@ const DeckView = ({ cards, allTags, onEditTags, selectedTags, handleTagToggle })
 };
 
 export default DeckView;
-

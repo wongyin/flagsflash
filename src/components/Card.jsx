@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 
-const Card = ({ card, onEditTags }) => {
+const CheckmarkIcon = () => (
+    <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+);
+
+const Card = ({ card, onEditTags, isCorrect }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
     return (
@@ -11,6 +17,11 @@ const Card = ({ card, onEditTags }) => {
             >
                 {/* Front Face */}
                 <div className="card-face flex items-center justify-center">
+                    {isCorrect && (
+                        <div className="absolute top-2 right-2 bg-white rounded-full p-0.5">
+                            <CheckmarkIcon />
+                        </div>
+                    )}
                     <img src={card.flagUrl} alt={`Flag of ${card.name}`} className="max-h-full max-w-full h-auto w-auto rounded-md border border-gray-200 shadow-md" />
                 </div>
                 {/* Back Face */}
@@ -39,4 +50,3 @@ const Card = ({ card, onEditTags }) => {
 };
 
 export default Card;
-

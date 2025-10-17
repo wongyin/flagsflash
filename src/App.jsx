@@ -6,6 +6,11 @@ import DeckView from './components/DeckView.jsx';
 import QuizView from './components/QuizView.jsx';
 import TagEditModal from './components/TagEditModal.jsx';
 
+const SPECIAL_TAGS = {
+    CORRECT: "Correctly Answered",
+    INCORRECT: "Not Yet Answered"
+};
+
 export default function App() {
     const [cards, setCards] = useState([]);
     const [allTags, setAllTags] = useState([]);
@@ -20,6 +25,7 @@ export default function App() {
     });
     const [editingCard, setEditingCard] = useState(null);
     const [selectedTags, setSelectedTags] = useState([]);
+    const [correctAnswers, setCorrectAnswers] = useState([]);
 
     // Theme effect
     useEffect(() => {
@@ -43,6 +49,8 @@ export default function App() {
                 if (!response.ok) throw new Error('Failed to fetch country data.');
                 const data = await response.json();
                 const savedTags = JSON.parse(localStorage.getItem('flagFlashcardTags')) || {};
+                const savedCorrectAnswers = JSON.parse(localStorage.getItem('flagFlashcardCorrectAnswers')) || [];
+                setCorrectAnswers(savedCorrectAnswers);
 
                 const processedCards = data
                     .filter(country => country.name.common && country.flags.svg && country.flags.alt)
@@ -73,7 +81,9 @@ export default function App() {
 
                 const allTagsSet = new Set();
                 processedCards.forEach(card => card.tags.forEach(tag => allTagsSet.add(tag)));
-                setAllTags(Array.from(allTagsSet).sort());
+                
+                const specialFilterTags = [SPECIAL_TAGS.CORRECT, SPECIAL_TAGS.INCORRECT];
+                setAllTags([...specialFilterTags, ...Array.from(allTagsSet).sort()]);
 
             } catch (error) {
                 console.error(error);
@@ -98,13 +108,21 @@ export default function App() {
 
         const allTagsSet = new Set();
         updatedCards.forEach(card => card.tags.forEach(tag => allTagsSet.add(tag)));
-        setAllTags(Array.from(allTagsSet).sort());
+        const specialFilterTags = [SPECIAL_TAGS.CORRECT, SPECIAL_TAGS.INCORRECT];
+        setAllTags([...specialFilterTags, ...Array.from(allTagsSet).sort()]);
     };
 
     const handleTagToggle = (tag) => {
         setSelectedTags(prev => 
             prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
         );
+    };
+
+    const handleCorrectAnswer = (cardId) => {
+        if (correctAnswers.includes(cardId)) return; // Already marked as correct
+        const newCorrectAnswers = [...correctAnswers, cardId];
+        setCorrectAnswers(newCorrectAnswers);
+        localStorage.setItem('flagFlashcardCorrectAnswers', JSON.stringify(newCorrectAnswers));
     };
 
     return (
@@ -125,6 +143,8 @@ export default function App() {
                             onEditTags={setEditingCard} 
                             selectedTags={selectedTags}
                             handleTagToggle={handleTagToggle}
+                            correctAnswers={correctAnswers}
+                            specialTags={SPECIAL_TAGS}
                         />
                     )}
                     {view === 'quiz' && (
@@ -133,6 +153,9 @@ export default function App() {
                             allTags={allTags} 
                             selectedTags={selectedTags}
                             handleTagToggle={handleTagToggle}
+                            onCorrectAnswer={handleCorrectAnswer}
+                            correctAnswers={correctAnswers}
+                            specialTags={SPECIAL_TAGS}
                         />
                     )}
                 </>
@@ -147,4 +170,3 @@ export default function App() {
         </div>
     );
 }
-

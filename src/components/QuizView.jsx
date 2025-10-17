@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
-const QuizView = ({ cards, allTags, selectedTags, handleTagToggle }) => {
+const QuizView = ({ cards, allTags, selectedTags, handleTagToggle, onCorrectAnswer, correctAnswers, specialTags }) => {
     const [quizDeck, setQuizDeck] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
     const [answer, setAnswer] = useState('');
@@ -21,10 +21,14 @@ const QuizView = ({ cards, allTags, selectedTags, handleTagToggle }) => {
     };
 
     const startQuiz = useCallback(() => {
-        let filteredCards = cards;
-        if (selectedTags.length > 0) {
-            filteredCards = cards.filter(card => selectedTags.every(tag => card.tags.includes(tag)));
-        }
+        const regularTags = selectedTags.filter(t => !Object.values(specialTags).includes(t));
+        
+        let filteredCards = cards.filter(card => {
+            const isCorrect = correctAnswers.includes(card.id);
+            if (selectedTags.includes(specialTags.CORRECT) && !isCorrect) return false;
+            if (selectedTags.includes(specialTags.INCORRECT) && isCorrect) return false;
+            return regularTags.every(tag => card.tags.includes(tag));
+        });
         
         if (filteredCards.length > 0) {
             setQuizDeck(shuffleArray(filteredCards));
@@ -39,7 +43,7 @@ const QuizView = ({ cards, allTags, selectedTags, handleTagToggle }) => {
         setIsAnswered(false);
         setFeedback('');
         setAnswer('');
-    }, [cards, selectedTags]);
+    }, [cards, selectedTags, correctAnswers, specialTags]);
 
     useEffect(() => {
         startQuiz();
@@ -60,10 +64,12 @@ const QuizView = ({ cards, allTags, selectedTags, handleTagToggle }) => {
 
     const checkAnswer = () => {
         if (!answer || !quizDeck[currentQuestionIndex]) return;
-        const correctAnswer = quizDeck[currentQuestionIndex].name;
+        const currentCard = quizDeck[currentQuestionIndex];
+        const correctAnswer = currentCard.name;
         if (answer.trim().toLowerCase() === correctAnswer.toLowerCase()) {
             setFeedback('Correct!');
             setScore(s => s + 1);
+            onCorrectAnswer(currentCard.id); // Mark as correct
         } else {
             setFeedback(`Wrong! It was ${correctAnswer}`);
         }
@@ -151,4 +157,3 @@ const QuizView = ({ cards, allTags, selectedTags, handleTagToggle }) => {
 };
 
 export default QuizView;
-
