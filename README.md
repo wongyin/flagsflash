@@ -44,12 +44,11 @@ You need to have Node.js and npm (Node Package Manager) installed on your system
     ```
     flag-flashcards/
     ├── public/
-    │   └── favicon.ico  # Your favicon
+    │   └── favicon.png  # favicon (192x192)
     ├── src/
     │   ├── assets/
     │   │   └── images/
     │   │       └── logo.png       # Your logo image
-    │   │       └── main-graphic.png # Your main graphic image
     │   ├── components/
     │   │   ├── Card.jsx
     │   │   ├── DeckView.jsx
@@ -62,13 +61,11 @@ You need to have Node.js and npm (Node Package Manager) installed on your system
     ├── index.html
     ├── package.json
     ├── tailwind.config.js
-    ├── postcss.config.js # Ensure this file exists for Tailwind
-    └── vite.config.js   # Or create-react-app's config files
+    └── vite.config.js   
     ```
-    *(Note: This project assumes Tailwind CSS is configured. Ensure `tailwind.config.js`, `postcss.config.js`, and Tailwind directives in your CSS (e.g., `index.css`) are set up correctly.)*
 
 2.  **Install dependencies:**
-    Navigate into your project directory and install all required Node.js packages, including Tailwind CSS.
+    Navigate into your project directory and install all required Node.js packages. This project uses Tailwind CSS, which will be installed via `package.json`.
 
     ```bash
     cd flag-flashcards
@@ -84,8 +81,28 @@ You need to have Node.js and npm (Node Package Manager) installed on your system
 
 ### Running the application
 
-To run the application in development mode:
+* **Development Mode:**
+    To run the application in development mode:
+    ```bash
+    npm run dev
+    ```
+    This will open the application in your browser, usually at `http://localhost:5173`.
 
-```bash
-npm run dev
-# or npm start if you are using Create React App
+* **Build for Production:**
+    To create a production-ready build:
+    ```bash
+    npm run build
+    ```
+    This compiles the app into the `dist` directory.
+
+* **Deploy to GitHub Pages:**
+    This project is configured for easy deployment to GitHub Pages.
+    
+    **Important:** You must update the `homepage` field in your `package.json` to reflect your specific GitHub Pages URL (e.g., `https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/`).
+    
+    Ensure you have the `gh-pages` package installed (`npm install gh-pages --save-dev`).
+    Then, simply run:
+    ```bash
+    npm run deploy
+    ```
+    This script will automatically run `npm run build` and then push the contents of the `dist` folder to the `gh-pages` branch of your repository. Your site will then be available at the `homepage` URL you configured in `package.json`.
