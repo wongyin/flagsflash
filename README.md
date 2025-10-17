@@ -1,6 +1,6 @@
 # Flag Flashcards
 
-![Flag Flashcards Main Graphic](src/assets/images/main-graphic.png)
+![Flag Flashcards Main Graphic](public/favicon.png)
 
 A fun and interactive web application to help you learn and memorize country flags from around the world. Test your knowledge in quiz mode or browse through the flag deck at your own pace. Customize tags, filter by regions, colors, or track your learning progress with "Correctly Answered" flags!
 
